@@ -324,15 +324,6 @@ function Get-MeltdownSpectreStatus {
             }
         }
 
-        $object | Add-Member -MemberType NoteProperty -Name "Hardware support for branch target injection mitigation is present" -Value $btiHardwarePresent
-        $object | Add-Member -MemberType NoteProperty -Name "Windows OS support for branch target injection mitigation is present" -Value $btiWindowsSupportPresent
-        $object | Add-Member -MemberType NoteProperty -Name "Windows OS support for branch target injection mitigation is enabled" -Value $btiWindowsSupportEnabled
-  
-        if ($btiWindowsSupportPresent -eq $true -and $btiWindowsSupportEnabled -eq $false) {
-            $object | Add-Member -MemberType NoteProperty -Name "Windows OS support for branch target injection mitigation is disabled by system policy" -Value $btiDisabledBySystemPolicy
-            $object | Add-Member -MemberType NoteProperty -Name "Windows OS support for branch target injection mitigation is disabled by absence of hardware support" -Value $btiDisabledByNoHardwareSupport
-        }
-        
         $object | Add-Member -MemberType NoteProperty -Name BTIHardwarePresent -Value $btiHardwarePresent
         $object | Add-Member -MemberType NoteProperty -Name BTIWindowsSupportPresent -Value $btiWindowsSupportPresent
         $object | Add-Member -MemberType NoteProperty -Name BTIWindowsSupportEnabled -Value $btiWindowsSupportEnabled
@@ -405,16 +396,6 @@ function Get-MeltdownSpectreStatus {
         
         Write-Verbose "Hardware requires kernel VA shadowing:$kvaShadowRequired"
 
-        if ($kvaShadowRequired) {
-            $object | Add-Member -MemberType NoteProperty -Name "Windows OS support for kernel VA shadow is present" -Value $kvaShadowPresent
-            $object | Add-Member -MemberType NoteProperty -Name "Windows OS support for kernel VA shadow is enabled" -Value $kvaShadowEnabled
-
-            if ($kvaShadowEnabled) {
-                $object | Add-Member -MemberType NoteProperty -Name "Windows OS support for PCID optimization is enabled" -Value $kvaShadowPcidEnabled
-            }
-        }
-
-        
         $object | Add-Member -MemberType NoteProperty -Name KVAShadowRequired -Value $kvaShadowRequired
         $object | Add-Member -MemberType NoteProperty -Name KVAShadowWindowsSupportPresent -Value $kvaShadowPresent
         $object | Add-Member -MemberType NoteProperty -Name KVAShadowWindowsSupportEnabled -Value $kvaShadowEnabled
@@ -446,7 +427,6 @@ function Get-MeltdownSpectreStatus {
                 Write-Verbose $action
             }
         }
-
 
         return $object
 
