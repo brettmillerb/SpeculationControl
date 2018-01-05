@@ -3,7 +3,7 @@ Original function provided by MS here: https://www.powershellgallery.com/package
 
 Adapted so this outputs one single object
 
-Get-MeltdownSpectreStatus
+`Get-MeltdownSpectreStatus`
 
 ```
 Hardware support for branch target injection mitigation is present   : False
